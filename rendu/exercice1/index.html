@@ -1,8 +1,9 @@
-<html>
+<html lang= "fr">
 
     <head>
       <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
       <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
+      <script src="./unlock_audio_ios.js"></script>
       <script>
 //AFRAME... = je créé des composants (répertoire)
       AFRAME.registerComponent('loaded', {
@@ -69,6 +70,7 @@ switch (nombre) {
                 });
                 }
             });
+//Chargement du son
 
 
       </script>
@@ -78,11 +80,19 @@ switch (nombre) {
 
     <body>
 <!-- a-scene: lieu ou je vais placer tous les elements de ma scene ()-->
+
+
       <a-scene>
 <!-- assets = je donne la référence du "lieu" ou se trouve le fichier-->
       <a-assets>
         <a-asset-item id="genia" src="./genia_5.glb"></a-asset-item>
+        <audio id="son" src="./assets/zorba.mp3" preload="auto" loop="false"></audio>
       </a-assets>
+
+      <!-- LUMIEREs-->
+      <a-entity light="type: ambient; color: #CCC; intensity: 1"></a-entity>
+      <a-entity light="type: directional; castShadow:true; intensity: 0.5"
+                position="-0.412 0.728 1.709"></a-entity>
 
 <!-- zn jaune = les composants-->
       <a-entity id = " modele3Dgenia"
@@ -95,7 +105,7 @@ switch (nombre) {
                 loaded
                 finished
                 loop
-
+                shadow="cast:true; receive:true"
                 >
 
       </a-entity>
@@ -107,16 +117,57 @@ switch (nombre) {
             rotation="0 0 90"
             coucou
             log="texte: ça fonctionne"
+            shadow="cast:true; receive:true"
             >
+
       </a-box>
 
       <a-plane
-  position="0 0 -4" rotation="-90 0 0" width="20" height="20" color="#7BC8A4"
+  
+            position="0 0 -4"
+            rotation="-90 0 0"
+            width="20"
+            height="20"
+            color="#7BC8A4"
+            shadow="cast:true; receive:true"
   >
     </a-plane>
 
   </a-scene>
+  <!-- GESTION AUDIO -->
+  <button id="bouton" style="position: absolute; left: 20px; bottom: 20px;">SON ON</button>
 
+  <script>
+      var b = document.querySelector('#bouton');
+      var son_zorba = document.querySelector('#son');
+
+      var AudioContext = window.AudioContext || window.webkitAudioContext;
+      var contexteAudio = new AudioContext;
+
+      unlockAudioIOS(contexteAudio); // ok pour context = AudioContext;
+
+      function resumeAudio() {
+          console.log(contexteAudio.state);
+
+          if(contexteAudio.state == "suspended")
+          {
+                contexteAudio.resume();
+                console.log('Playback resumed successfully');
+                son_zorba.play();
+                b.innerHTML = "SON OFF";
+                console.log("SON OFF");
+          }
+          else {
+                contexteAudio.suspend();
+                console.log('Playback paused successfully');
+                son_vol.pause();
+                b.innerHTML = "SON ON";
+                console.log("SON ON");
+          }
+          //document.removeEventListener("click", resumeAudio);
+      }
+      b.onclick = resumeAudio;
+        </script>
     </body>
 
     </html>
