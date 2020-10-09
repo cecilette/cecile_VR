@@ -87,7 +87,9 @@ switch (nombre) {
       <a-assets>
         <a-asset-item id="genia" src="./genia_5.glb"></a-asset-item>
         <audio id="son" src="./assets/zorba.mp3" preload="auto" loop="false"></audio>
+        <img id="thira" crossorigin="anonymous" src="thira.jpg" />
       </a-assets>
+
 
       <!-- LUMIEREs-->
       <a-entity light="type: ambient; color: #CCC; intensity: 1"></a-entity>
@@ -110,32 +112,21 @@ switch (nombre) {
 
       </a-entity>
 
-       <a-sky color="#BDEEEE"></a-sky>
+    	<a-sky src="#thira"></a-sky>
 
-      <a-box
-            position="0 0.5 -5"
-            rotation="0 0 90"
-            coucou
-            log="texte: ça fonctionne"
-            shadow="cast:true; receive:true"
-            >
 
-      </a-box>
 
-      <a-plane
-  
-            position="0 0 -4"
-            rotation="-90 0 0"
-            width="20"
-            height="20"
-            color="#7BC8A4"
-            shadow="cast:true; receive:true"
-  >
-    </a-plane>
+      <a-plane position="1.64 0 -5.6"
+               rotation="-90 0 0"
+               width="5"
+               height="5"
+               shadow="receive: true"
+               material="transparent: true; opacity: 0.5" >
+     </a-plane>
 
   </a-scene>
   <!-- GESTION AUDIO -->
-  <button id="bouton" style="position: absolute; left: 20px; bottom: 20px;">SON ON</button>
+  <button id="bouton" style="position: absolute; left: 20px; bottom: 20px;">Go</button>
 
   <script>
       var b = document.querySelector('#bouton');
@@ -160,7 +151,7 @@ switch (nombre) {
           else {
                 contexteAudio.suspend();
                 console.log('Playback paused successfully');
-                son_vol.pause();
+                son_zorba.pause();
                 b.innerHTML = "SON ON";
                 console.log("SON ON");
           }
