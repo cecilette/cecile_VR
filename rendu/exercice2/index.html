@@ -1,0 +1,164 @@
+<html lang= "fr">
+
+    <head>
+      <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.0.1/dist/aframe-extras.min.js"></script>
+      <script src="./unlock_audio_ios.js"></script>
+      <script>
+//AFRAME... = je créé des composants (répertoire)
+      AFRAME.registerComponent('loaded', {
+          init: function () {
+            var el = this.el;
+      el.addEventListener('model-loaded', () => {
+            console.log(">>>> modele chargé "+el.id);
+          });
+        el.addEventListener('model-error', () => {
+            console.log(">>>> modeleerreur");
+          });
+          }
+      });
+
+      AFRAME.registerComponent('finished', {
+          init: function () {
+              var el = this.el;
+                el.addEventListener('animation-finished',() => {
+                  console.log(">>>> animation fini "+el.id);
+                });
+                }
+            });
+
+      AFRAME.registerComponent('loop', {
+          init: function () {
+              var el = this.el;
+              var nombre = 1;
+                el.addEventListener('animation-loop',() => {
+                  if (nombre<5){nombre = nombre +1}
+                    else {nombre = 1}
+                  console.log(nombre)
+switch (nombre) {
+  case 1: el.setAttribute ('animation-mixer', "clip: pas_01")
+  el.setAttribute ('animation-mixer', "timeScale: 0.5")
+  console.log("anim 1")
+    break;
+
+  case 2: el.setAttribute ('animation-mixer', "clip: pas_02")
+  el.setAttribute ('animation-mixer', "timeScale: 1.3")
+    console.log("anim 2")
+    break;
+
+  case 3:
+  el.setAttribute ('animation-mixer', "clip: pas_03")
+  el.setAttribute ('animation-mixer', "timeScale: 1.3")
+    console.log("anim 3")
+    break;
+
+  case 4:
+  el.setAttribute ('animation-mixer', "clip: pas_04")
+  el.setAttribute ('animation-mixer', "timeScale: 0.5")
+    console.log("anim 4")
+    break;
+
+  case 5:
+  el.setAttribute ('animation-mixer', "clip: pas_05")
+  el.setAttribute ('animation-mixer', "timeScale: 1.3")
+    console.log("anim 5")
+    break;
+
+}
+                  console.log(">>>> loop fini "+el.id);
+
+                });
+                }
+            });
+//Chargement du son
+
+
+      </script>
+    </head>
+
+
+
+    <body>
+<!-- a-scene: lieu ou je vais placer tous les elements de ma scene ()-->
+
+
+      <a-scene>
+<!-- assets = je donne la référence du "lieu" ou se trouve le fichier-->
+      <a-assets>
+        <a-asset-item id="genia" src="./genia_5.glb"></a-asset-item>
+        <audio id="son" src="./assets/zorba.mp3" preload="auto" loop="false"></audio>
+        <img id="thira" crossorigin="anonymous" src="thira.jpg" />
+      </a-assets>
+
+
+      <!-- LUMIEREs-->
+      <a-entity light="type: ambient; color: #CCC; intensity: 1"></a-entity>
+      <a-entity light="type: directional; castShadow:true; intensity: 0.5"
+                position="-0.412 0.728 1.709"></a-entity>
+
+<!-- zn jaune = les composants-->
+      <a-entity id = " modele3Dgenia"
+
+                position="0 0 -2"
+                rotation="90 0 165"
+                scale="1 1 1"
+                gltf-model="#genia"
+                animation-mixer="clip: pas_01; repetitions: 15; timeScale: 0.5"
+                loaded
+                finished
+                loop
+                shadow="cast:true; receive:true"
+                >
+
+      </a-entity>
+
+    	<a-sky src="#thira"></a-sky>
+
+
+
+      <a-plane position="1.64 0 -5.6"
+               rotation="-90 0 0"
+               width="5"
+               height="5"
+               shadow="receive: true"
+               material="transparent: true; opacity: 0.5" >
+     </a-plane>
+
+  </a-scene>
+  <!-- GESTION AUDIO -->
+  <button id="bouton" style="position: absolute; left: 20px; bottom: 20px;">Go</button>
+
+  <script>
+      var b = document.querySelector('#bouton');
+      var son_zorba = document.querySelector('#son');
+
+      var AudioContext = window.AudioContext || window.webkitAudioContext;
+      var contexteAudio = new AudioContext;
+
+      unlockAudioIOS(contexteAudio); // ok pour context = AudioContext;
+
+      function resumeAudio() {
+          console.log(contexteAudio.state);
+
+          if(contexteAudio.state == "suspended")
+          {
+                contexteAudio.resume();
+                console.log('Playback resumed successfully');
+                son_zorba.play();
+                b.innerHTML = "SON OFF";
+                console.log("SON OFF");
+          }
+          else {
+                contexteAudio.suspend();
+                console.log('Playback paused successfully');
+                son_zorba.pause();
+                b.innerHTML = "SON ON";
+                console.log("SON ON");
+          }
+          //document.removeEventListener("click", resumeAudio);
+      }
+      b.onclick = resumeAudio;
+        </script>
+    </body>
+
+    </html>
