@@ -86,8 +86,9 @@ switch (nombre) {
 <!-- assets = je donne la référence du "lieu" ou se trouve le fichier-->
       <a-assets>
         <a-asset-item id="genia" src="./genia_5.glb"></a-asset-item>
+          <a-asset-item id="decor_grec" src="./assets/decor_grec.glb"></a-asset-item>
         <audio id="son" src="./assets/zorba.mp3" preload="auto" loop="false"></audio>
-        <img id="thira" crossorigin="anonymous" src="thira.jpg" />
+      <img id="ciel" crossorigin="anonymous" src="ciel.jpg" />
       </a-assets>
 
 
@@ -95,6 +96,7 @@ switch (nombre) {
       <a-entity light="type: ambient; color: #CCC; intensity: 1"></a-entity>
       <a-entity light="type: directional; castShadow:true; intensity: 0.5"
                 position="-0.412 0.728 1.709"></a-entity>
+
 
 <!-- zn jaune = les composants-->
       <a-entity id = " modele3Dgenia"
@@ -111,18 +113,14 @@ switch (nombre) {
                 >
 
       </a-entity>
+      <a-entity  id ="decor_grec" position="2 0 -5"  rotation="0 265 0" scale="0.35 0.35 0.35" gltf-model="#decor_grec"
+      </a-entity>
 
-    	<a-sky src="#thira"></a-sky>
+         	<a-sky src="#ciel"></a-sky>
 
 
 
-      <a-plane position="1.64 0 -5.6"
-               rotation="-90 0 0"
-               width="5"
-               height="5"
-               shadow="receive: true"
-               material="transparent: true; opacity: 0.5" >
-     </a-plane>
+
 
   </a-scene>
   <!-- GESTION AUDIO -->
