@@ -82,13 +82,13 @@ switch (nombre) {
 <!-- a-scene: lieu ou je vais placer tous les elements de ma scene ()-->
 
 
-      <a-scene>
+        <a-scene background="color: #c5fcff">
 <!-- assets = je donne la référence du "lieu" ou se trouve le fichier-->
       <a-assets>
         <a-asset-item id="genia" src="./genia_5.glb"></a-asset-item>
           <a-asset-item id="decor_grec" src="./assets/decor_grec.glb"></a-asset-item>
         <audio id="son" src="./assets/zorba.mp3" preload="auto" loop="false"></audio>
-      <img id="ciel" crossorigin="anonymous" src="ciel.jpg" />
+
       </a-assets>
 
 
@@ -116,7 +116,7 @@ switch (nombre) {
       <a-entity  id ="decor_grec" position="2 0 -5"  rotation="0 265 0" scale="0.35 0.35 0.35" gltf-model="#decor_grec"
       </a-entity>
 
-         	<a-sky src="#ciel"></a-sky>
+
 
 
 
