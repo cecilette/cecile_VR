@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  </head>
+  <body>
+
+      <a-scene>
+
+        <!-- BIP BIP BIP -->
+      <a-assets>
+        <!-- No loop. -->
+        <video id="Grece_House" src="Grece_House.mp4" autoplay="true">
+      </a-assets>
+
+      <a-entity geometry="primitive: box" material="src:#Grece_House"></a-entity>
+
+  <a-assets>
+    <video id="Grece_House" autoplay loop="true" src="./assets/Grece_House.m4v"></video>
+  </a-assets>
+
+        <a-asset-item id="ville" src="./assets/ville2.glb"></a-asset-item>
+  </a-assets>
+
+
+      <!-- LUMIEREs-->
+      <a-entity light="type: ambient; color: #CCC; intensity: 1"></a-entity>
+      <a-entity light="type: directional; castShadow:true; intensity: 0.5"
+                position="-0.412 0.728 1.709"></a-entity>
+
+    <a-sky color="#a2eeff"></a-sky>
+
+
+      <a-entity  id ="primitive: box" position="4 6 -10"  rotation="0 265 0" scale="0.40 0.40 0.40" gltf-model="#Grece_House"></a-entity>
+
+    </a-scene>
+  </body>
+</html>

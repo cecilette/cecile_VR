@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+  </head>
+  <body>
+
+
+    <a-scene>
+      <a-assets>
+        <!-- No loop. -->
+        <video id="Grece_House" src="Grece_House.mp4" autoplay="true">
+      </a-assets>
+
+      <a-entity geometry="primitive: box" material="src: #Grece_House"></a-entity>
+
+          <a-video src="Grece_House.mp4" width="3" height="1.5"></a-video>
+
+        <a-sky color="#a2eeff"></a-sky>
+
+    </a-scene>
+
+  </body>
+</html>
